@@ -119,7 +119,7 @@ function spawnEnemies() {
         const angle = Math.atan2(+y - enemyY, +x - enemyX);
         const velocity = { x: Math.cos(angle), y: Math.sin(angle) };
         enemies.push(new Enemy(enemyX, enemyY, radius, color, velocity));
-    }, 1500);
+    }, 800);
 }
 
 spawnEnemies();
