@@ -1,7 +1,16 @@
 body {
     margin: 0;
-    /* background-color: #222; */
+    background-color: #222;
     overflow: hidden;
+    font-family: 'Maven Pro', sans-serif;
+    font-family: 'Open Sans', sans-serif;
+}
+
+* {
+    user-select: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 .score {
@@ -9,5 +18,44 @@ body {
     color: #fff;
     font-size: 25px;
     padding: 10px;
-    user-select: none;
+}
+
+.end-game {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -1000px);
+    background: #fff;
+    width: 400px;
+    max-width: 80%;
+    text-align: center;
+    padding: 30px;
+    transition: all .5s;
+}
+
+.end-game.active {
+    transform: translate(-50%, -50%);
+}
+
+.end-game h1 {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.end-game p {
+    color: gray;
+    font-size: 20px;
+    margin-top: -11px;
+}
+
+.end-game button {
+    background-color: #007bff;
+    color: #fff;
+    width: 100%;
+    padding: 10px;
+    border-radius: 40px;
+    font-size: 24px;
+    border: none;
+    margin-top: 8px;
+    cursor: pointer
 }

@@ -94,12 +94,21 @@ class Particle {
 }
 
 
-const player = new Player(x, y, 15, "#fff");
+let player = new Player(x, y, 15, "#fff");
 player.draw();
+let projectiles = [];
+let enemies = [];
+let particles = [];
 
-const projectiles = [];
-const enemies = [];
-const particles = [];
+function init() {
+    player = new Player(x, y, 15, "#fff");
+    player.draw();
+    projectiles = [];
+    enemies = [];
+    particles = [];
+    score = 0;
+    scoreEl.textContent = 0;
+}
 
 function spawnEnemies() {
     setInterval(() => {
@@ -125,6 +134,18 @@ function spawnEnemies() {
 spawnEnemies();
 
 let animationId;
+
+let score = 0;
+let scoreEl = document.getElementById("score");
+let endGame = document.getElementById('end-game');
+let endGameScore = document.getElementById('end-game-score');
+let endGameBtn = document.getElementById('start-game-btn');
+endGameBtn.addEventListener("click", function() {
+    init();
+    animate();
+    spawnEnemies();
+    endGame.classList.remove("active");
+});
 
 function animate() {
     animationId = requestAnimationFrame(animate);
@@ -155,11 +176,13 @@ function animate() {
     enemies.forEach((enemy, enemyIndex) => {
         const dist = Math.hypot(player.x - enemy.x, player.y - enemy.y)
         if (dist - enemy.radius - player.radius < 1) {
-            cancelAnimationFrame(animationId)
+            endGame.classList.add('active');
+            endGameScore.textContent = score;
+            cancelAnimationFrame(animationId);
         }
         projectiles.forEach((projectile, porjectileIndex) => {
             const dist = Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y)
-            if (dist - enemy.radius - projectile.radius < 1) {
+            if (dist - enemy.radius - projectile.radius <= 0) {
                 if (enemy.radius - 10 > 8) {
                     gsap.to(enemy, {
                         radius: enemy.radius - 10
@@ -168,6 +191,8 @@ function animate() {
                     setTimeout(() => {
                         enemies.splice(enemyIndex, 1);
                         projectiles.splice(porjectileIndex, 1);
+                        score += 100;
+                        scoreEl.textContent = score;
                     }, 0);
                 }
                 for (let i = 0; i < 5; i++) {
