@@ -64,7 +64,6 @@ class Enemy {
 function spawnEnemies() {
     setInterval(() => {
         const radius = Math.random() * (30 - 4) * 4;
-        console.log(radius)
         let enemyX, enemyY;
         if (Math.random() < .5) {
             enemyX = Math.random() < .5 ? 0 - radius : Math.random() * canvas.width + radius;
@@ -77,7 +76,7 @@ function spawnEnemies() {
         const angle = Math.atan2(+y - enemyY, +x - enemyX);
         const velocity = { x: Math.cos(angle), y: Math.sin(angle) };
         enemies.push(new Enemy(enemyX, enemyY, radius, color, velocity));
-    }, 1000);
+    }, 200);
 }
 
 spawnEnemies();
@@ -101,7 +100,18 @@ function animate() {
         projectile.update();
     });
 
-    enemies.forEach(enemy => {
+    enemies.forEach((enemy, enemyIndex) => {
+        let dist;
+        projectiles.forEach((projectile, porjectileIndex) => {
+            //  hypot(a,b) = sqrt( pow(a) + pow(b))
+            dist = Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y)
+            if (dist - enemy.radius - projectile.radius < 1) {
+                setTimeout(() => {
+                    enemies.splice(enemyIndex, 1);
+                    projectiles.splice(porjectileIndex, 1);
+                }, 0)
+            }
+        });
         enemy.update();
     });
 
