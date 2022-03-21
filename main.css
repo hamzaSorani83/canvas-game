@@ -1,5 +1,13 @@
 body {
     margin: 0;
-    background-color: #222;
+    /* background-color: #222; */
     overflow: hidden;
+}
+
+.score {
+    position: fixed;
+    color: #fff;
+    font-size: 25px;
+    padding: 10px;
+    user-select: none;
 }
