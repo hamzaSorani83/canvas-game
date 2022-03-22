@@ -18,7 +18,7 @@ class Player {
         c.beginPath();
         c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
         c.fillStyle = this.color;
-        c.fill()
+        c.fill();
     }
 }
 
@@ -89,7 +89,7 @@ class Particle {
         this.velocity.y *= friction
         this.x += this.velocity.x;
         this.y += this.velocity.y;
-        this.alpha -= .01
+        this.alpha -= .01;
     }
 }
 
@@ -140,6 +140,7 @@ let scoreEl = document.getElementById("score");
 let endGame = document.getElementById('end-game');
 let endGameScore = document.getElementById('end-game-score');
 let endGameBtn = document.getElementById('start-game-btn');
+
 endGameBtn.addEventListener("click", function() {
     init();
     animate();
@@ -149,9 +150,11 @@ endGameBtn.addEventListener("click", function() {
 
 function animate() {
     animationId = requestAnimationFrame(animate);
+
     c.fillStyle = 'rgba(0,0,0,.1)';
     c.fillRect(0, 0, canvas.width, canvas.height);
     player.draw();
+
     particles.forEach((particle, particleIndex) => {
         if (particle.alpha <= 0) {
             particles.splice(particleIndex);
@@ -159,6 +162,7 @@ function animate() {
             particle.update();
         }
     });
+
     projectiles.forEach((projectile, index) => {
         projectile.update();
         if (
@@ -180,6 +184,7 @@ function animate() {
             endGameScore.textContent = score;
             cancelAnimationFrame(animationId);
         }
+
         projectiles.forEach((projectile, porjectileIndex) => {
             const dist = Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y)
             if (dist - enemy.radius - projectile.radius <= 0) {
