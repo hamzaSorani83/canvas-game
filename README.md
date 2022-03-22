@@ -42,5 +42,7 @@
         radius: enemy.radius - 10
       });
     - else removeEnemy
+  -  we are using particles to convert enemy to 5 particles
 
-# we are using particles to convert enemy to 5 particles
+# to get random color:
+  - color = `hsl(${Math.random() * 360}, 50%, 50%)`
